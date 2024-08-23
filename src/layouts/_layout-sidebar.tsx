@@ -92,12 +92,12 @@ export function Sidebar({
               isCollapse={isCollapse}
               icon={<HomeIcon className="h-[18px] w-[18px] text-current" />}
             />
-            <NavLink
+            {/* <NavLink
               title={t('text-explore')}
               href={routes.explore}
               isCollapse={isCollapse}
               icon={<DiscoverIcon className="h-[18px] w-[18px] text-current" />}
-            />
+            /> */}
             <NavLink
               title={t('text-popular-products')}
               href={routes.popularProducts}
@@ -150,10 +150,10 @@ export function Sidebar({
             {t('text-privacy')}
           </ActiveLink>
           <ActiveLink
-            href={routes.help}
+            href={routes.refund}
             className="block py-2 text-dark-700 hover:text-dark-100 dark:hover:text-brand"
           >
-            {t('text-help-page-title')}
+            {t('Refund')}
           </ActiveLink>
         </nav>
         <Copyright className="px-1 text-xs font-medium text-dark-800/80 dark:text-dark-700" />

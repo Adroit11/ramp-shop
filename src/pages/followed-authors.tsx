@@ -14,28 +14,29 @@ import FollowButton from '@/components/follow/follow-button';
 import ItemNotFound from '@/components/ui/item-not-found';
 import Link from 'next/link';
 
-function FollowedShop({ shop }: { shop: Shop }) {
-  const { name, logo, slug } = shop ?? {};
+function FollowedShop() {
+  // const { name, logo, slug } = shop ?? {};
   return (
-    <div className="flex items-center gap-4 border-b border-light-400 py-5 last:border-b-0 dark:border-dark-400 sm:gap-5">
-      <div className="relative aspect-square w-16 flex-shrink-0 border border-light-300 dark:border-0">
-        <Image
-          alt={name}
-          fill
-          quality={100}
-          src={logo?.original ?? placeholder}
-          className="rounded-3xl bg-light-400 object-cover dark:bg-dark-400"
-        />
-      </div>
-      <div className="flex flex-1 flex-col items-start sm:flex-row sm:items-center sm:justify-between">
-        <div className="pb-2 sm:pb-0">
-          <h3 className="my-1.5 font-medium text-dark dark:text-light">
-            <Link href={`/authors/${slug}`}> {name}</Link>
-          </h3>
-        </div>
-        <FollowButton shop_id={shop.id} />
-      </div>
-    </div>
+    // <div className="flex items-center gap-4 border-b border-light-400 py-5 last:border-b-0 dark:border-dark-400 sm:gap-5">
+    //   <div className="relative aspect-square w-16 flex-shrink-0 border border-light-300 dark:border-0">
+    //     <Image
+    //       alt={name}
+    //       fill
+    //       quality={100}
+    //       src={logo?.original ?? placeholder}
+    //       className="rounded-3xl bg-light-400 object-cover dark:bg-dark-400"
+    //     />
+    //   </div>
+    //   <div className="flex flex-1 flex-col items-start sm:flex-row sm:items-center sm:justify-between">
+    //     <div className="pb-2 sm:pb-0">
+    //       <h3 className="my-1.5 font-medium text-dark dark:text-light">
+    //         <Link href={`/authors/${slug}`}> {name}</Link>
+    //       </h3>
+    //     </div>
+    //     <FollowButton shop_id={shop.id} />
+    //   </div>
+    // </div>
+    <>Temp</>
   );
 }
 
@@ -58,8 +59,8 @@ function FollowedShopLoader() {
 const LIMIT = 10;
 
 const FollowedAuthorsPage: NextPageWithLayout = () => {
-  const { shops, loadMore, hasNextPage, isLoadingMore, isLoading } =
-    useFollowedShops({ limit: LIMIT });
+  // const { shops, loadMore, hasNextPage, isLoadingMore, isLoading } =
+  //   useFollowedShops({ limit: LIMIT });
   const { t } = useTranslation('common');
 
   return (
@@ -69,10 +70,10 @@ const FollowedAuthorsPage: NextPageWithLayout = () => {
     >
       <h1 className="mb-3 text-15px font-medium text-dark dark:text-light">
         {t('text-followed-authors')}
-        <span className="ml-1 text-light-900">({shops.length})</span>
+        {/* <span className="ml-1 text-light-900">({shops.length})</span> */}
       </h1>
 
-      {isLoading &&
+      {/* {isLoading &&
         !shops?.length &&
         rangeMap(LIMIT, (i) => <FollowedShopLoader key={`shop-loader-${i}`} />)}
 
@@ -81,11 +82,11 @@ const FollowedAuthorsPage: NextPageWithLayout = () => {
           title="No Follow Authors Found"
           className="mx-auto w-full md:w-7/12"
           message=""
-        />
-      ) : (
+        /> */}
+      {/* ) : (
         ''
-      )}
-
+      )} */}
+      {/* 
       {!isLoading &&
         shops &&
         shops.map((shop) => (
@@ -102,7 +103,7 @@ const FollowedAuthorsPage: NextPageWithLayout = () => {
             Load more
           </Button>
         </div>
-      )}
+      )} */}
     </motion.div>
   );
 };

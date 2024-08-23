@@ -17,7 +17,8 @@ export default function Logo({
   const { settings }: any = useSettings();
   return (
     <AnchorLink
-      href={routes.home}
+      href={process.env.NEXT_PUBLIC_WEBSITE_URL ?? '#'}
+      target="_blank"
       className={cn(
         'relative flex items-center text-dark focus:outline-none dark:text-light',
         className,
@@ -33,7 +34,7 @@ export default function Logo({
       >
         {isMounted && isDarkMode && (
           <Image
-            src={darkLogo}
+            src={'/logo_brand.png'}
             fill
             loading="eager"
             alt={'Ramp Dark Logo'}
@@ -46,7 +47,7 @@ export default function Logo({
         )}
         {isMounted && !isDarkMode && (
           <Image
-            src={lightLogo}
+            src={'/logo_black.png'}
             fill
             loading="eager"
             alt={'Ramp Light Logo'}

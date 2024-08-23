@@ -18,11 +18,11 @@ import { fadeInBottom } from '@/lib/framer-motion/fade-in-bottom';
 
 const MyReportsPage: NextPageWithLayout = () => {
   const { t } = useTranslation('common');
-  const { reports, isLoading, error } = useMyReports({
-    limit: 50,
-  });
+  // const { reports, isLoading, error } = useMyReports({
+  //   limit: 50,
+  // });
 
-  if (error) return <ErrorMessage message={error?.message} />;
+  // if (error) return <ErrorMessage message={error?.message} />;
 
   const orderTableColumns = [
     {
@@ -97,13 +97,13 @@ const MyReportsPage: NextPageWithLayout = () => {
       <h1 className="mb-8 text-15px font-medium text-dark dark:text-light">
         {t('text-my-reports-title')}
       </h1>
-      {!reports && isLoading ? <TableLoader uniqueKey={`table-loader`} /> : ''}
+      {/* {!reports && isLoading ? <TableLoader uniqueKey={`table-loader`} /> : ''}
       {isEmpty(reports) && !isLoading ? (
         <ItemNotFound title={t('text-no-reports-found')} message="" />
       ) : (
         ''
-      )}
-      {!isEmpty(reports) ? (
+      )} */}
+      {/* {!isEmpty(reports) ? (
         <Table
           //@ts-ignore
           columns={orderTableColumns}
@@ -114,7 +114,8 @@ const MyReportsPage: NextPageWithLayout = () => {
         />
       ) : (
         ''
-      )}
+      )} */}{' '}
+      temp
     </motion.div>
   );
 };

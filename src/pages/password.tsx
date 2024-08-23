@@ -44,21 +44,21 @@ const changePasswordSchema = yup.object().shape({
 const ChangePasswordPage: NextPageWithLayout = () => {
   const { t } = useTranslation('common');
   let [error, setError] = useState<Partial<ChangePasswordInput> | null>(null);
-  const { mutate, isLoading } = useMutation(client.users.changePassword, {
-    onSuccess: (data) => {
-      if (!data.success) {
-        setError({ oldPassword: data.message });
-        toast.error(<b>Current password is incorrect</b>, {
-          className: '-mt-10 xs:mt-0',
-        });
-        return;
-      }
-      toast.success(<b>Password successfully updated!</b>, {
-        className: '-mt-10 xs:mt-0',
-      });
-    },
-  });
-  const onSubmit: SubmitHandler<ChangePasswordInput> = (data) => mutate(data);
+  // const { mutate, isLoading } = useMutation(client.users.changePassword, {
+  //   onSuccess: (data) => {
+  //     if (!data.success) {
+  //       setError({ oldPassword: data.message });
+  //       toast.error(<b>Current password is incorrect</b>, {
+  //         className: '-mt-10 xs:mt-0',
+  //       });
+  //       return;
+  //     }
+  //     toast.success(<b>Password successfully updated!</b>, {
+  //       className: '-mt-10 xs:mt-0',
+  //     });
+  //   },
+  // });
+  // const onSubmit: SubmitHandler<ChangePasswordInput> = (data) => mutate(data);
   return (
     <motion.div
       variants={fadeInBottom()}
@@ -67,7 +67,7 @@ const ChangePasswordPage: NextPageWithLayout = () => {
       <h1 className="mb-5 text-15px font-medium text-dark dark:text-light sm:mb-6">
         {t('text-password-page-title')}
       </h1>
-      <Form<ChangePasswordInput & { confirmPassword: string }>
+      {/* <Form<ChangePasswordInput & { confirmPassword: string }>
         onSubmit={onSubmit}
         validationSchema={changePasswordSchema}
         serverError={error}
@@ -115,7 +115,7 @@ const ChangePasswordPage: NextPageWithLayout = () => {
             </div>
           </>
         )}
-      </Form>
+      </Form> */}
     </motion.div>
   );
 };
@@ -126,14 +126,14 @@ ChangePasswordPage.getLayout = function getLayout(page) {
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(
-    [API_ENDPOINTS.SETTINGS, { language: locale }],
-    ({ queryKey }) => client.settings.all(queryKey[1] as SettingsQueryOptions)
-  );
+  // const queryClient = new QueryClient();
+  // await queryClient.prefetchQuery(
+  //   [API_ENDPOINTS.SETTINGS, { language: locale }],
+  //   ({ queryKey }) => client.settings.all(queryKey[1] as SettingsQueryOptions)
+  // );
   return {
     props: {
-      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+      // dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
       ...(await serverSideTranslations(locale!, ['common'])),
     },
     revalidate: 60, // In seconds

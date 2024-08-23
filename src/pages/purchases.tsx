@@ -27,48 +27,48 @@ import routes from '@/config/routes';
 import AnchorLink from '@/components/ui/links/anchor-link';
 import { CreditCardIcon } from '@/components/icons/credit-card-icon';
 
-function OrderedItem({ item }: { item: OrderedFile }) {
+function OrderedItem() {
   const { t } = useTranslation('common');
   const { openModal } = useModalAction();
-  const { id: order_id, tracking_number } = item.order;
-  const {
-    id: product_id,
-    shop_id,
-    name,
-    slug,
-    image,
-    preview_url,
-    my_review,
-  } = item.file.fileable ?? {};
-  const { mutate } = useMutation(client.orders.generateDownloadLink, {
-    onSuccess: (data) => {
-      function download(fileUrl: string, fileName: string) {
-        let a = document.createElement('a');
-        a.href = fileUrl;
-        a.setAttribute('download', fileName);
-        a.click();
-      }
+  // const { id: order_id, tracking_number } = item.order;
+  // const {
+  //   id: product_id,
+  //   shop_id,
+  //   name,
+  //   slug,
+  //   image,
+  //   preview_url,
+  //   my_review,
+  // } = item.file.fileable ?? {};
+  // const { mutate } = useMutation(client.orders.generateDownloadLink, {
+  //   onSuccess: (data) => {
+  //     function download(fileUrl: string, fileName: string) {
+  //       let a = document.createElement('a');
+  //       a.href = fileUrl;
+  //       a.setAttribute('download', fileName);
+  //       a.click();
+  //     }
 
-      download(data, name);
-    },
-  });
+  //     download(data, name);
+  //   },
+  // });
 
-  function openReviewModal() {
-    openModal('REVIEW_RATING', {
-      product_id,
-      shop_id,
-      name,
-      image,
-      my_review: getReview(my_review, order_id),
-      order_id,
-    });
-  }
-  const getStatus =
-    item?.order?.payment_status === PaymentStatus.SUCCESS ||
-    item?.order?.payment_status === PaymentStatus.WALLET;
+  // function openReviewModal() {
+  //   openModal('REVIEW_RATING', {
+  //     product_id,
+  //     shop_id,
+  //     name,
+  //     image,
+  //     my_review: getReview(my_review, order_id),
+  //     order_id,
+  //   });
+  // }
+  // const getStatus =
+  //   item?.order?.payment_status === PaymentStatus.SUCCESS ||
+  //   item?.order?.payment_status === PaymentStatus.WALLET;
   return (
     <div className="flex items-start gap-4 border-b border-light-400 py-4 last:border-b-0 dark:border-dark-400 sm:gap-5">
-      <AnchorLink href={routes.productUrl(slug)}>
+      {/* <AnchorLink href={routes.productUrl(slug)}>
         <div className="relative aspect-[5/3.4] w-28 flex-shrink-0 border border-light-300 dark:border-0 sm:w-32 md:w-36">
           <Image
             alt={name}
@@ -79,8 +79,8 @@ function OrderedItem({ item }: { item: OrderedFile }) {
             sizes="(max-width: 768px) 100vw"
           />
         </div>
-      </AnchorLink>
-      <div className="flex flex-1 flex-col gap-4 sm:flex-row sm:items-center sm:justify-between md:gap-0">
+      </AnchorLink> */}
+      {/* <div className="flex flex-1 flex-col gap-4 sm:flex-row sm:items-center sm:justify-between md:gap-0">
         <div className="border-b border-light-400 pb-3 dark:border-dark-600 sm:border-b-0 sm:pb-0">
           <p className="text-gray-500 dark:text-gray-400">
             {t('text-purchased-on')}{' '}
@@ -166,26 +166,27 @@ function OrderedItem({ item }: { item: OrderedFile }) {
             </Menu>
           </div>
         </div>
-      </div>
+      </div> */}{' '}
+      temp
     </div>
   );
 }
 
-function OrderItemLoader() {
-  return (
-    <div className="flex animate-pulse items-start gap-4 border-b border-light-400 py-4 last:border-b-0 dark:border-dark-400 sm:items-stretch sm:gap-5">
-      <div className="relative aspect-[5/3.4] w-28 flex-shrink-0 bg-light-400 dark:bg-dark-400 sm:w-32 md:w-36" />
-      <div className="flex flex-1 flex-col gap-4 sm:flex-row sm:items-center sm:justify-between md:gap-0">
-        <div className="h-full flex-grow border-b border-light-400 pb-3 dark:border-dark-600 sm:border-b-0 sm:pb-0">
-          <div className="mb-3 h-2.5 w-1/4 bg-light-400 dark:bg-dark-400" />
-          <div className="mb-6 h-2.5 w-2/4 bg-light-400 dark:bg-dark-400" />
-          <div className="h-2.5 w-1/5 bg-light-400 dark:bg-dark-400" />
-        </div>
-        <div className="h-2.5 w-1/3 bg-light-400 dark:bg-dark-400 sm:h-12 sm:w-1/4 sm:rounded md:w-1/6" />
-      </div>
-    </div>
-  );
-}
+// function OrderItemLoader() {
+//   return (
+//     <div className="flex animate-pulse items-start gap-4 border-b border-light-400 py-4 last:border-b-0 dark:border-dark-400 sm:items-stretch sm:gap-5">
+//       <div className="relative aspect-[5/3.4] w-28 flex-shrink-0 bg-light-400 dark:bg-dark-400 sm:w-32 md:w-36" />
+//       <div className="flex flex-1 flex-col gap-4 sm:flex-row sm:items-center sm:justify-between md:gap-0">
+//         <div className="h-full flex-grow border-b border-light-400 pb-3 dark:border-dark-600 sm:border-b-0 sm:pb-0">
+//           <div className="mb-3 h-2.5 w-1/4 bg-light-400 dark:bg-dark-400" />
+//           <div className="mb-6 h-2.5 w-2/4 bg-light-400 dark:bg-dark-400" />
+//           <div className="h-2.5 w-1/5 bg-light-400 dark:bg-dark-400" />
+//         </div>
+//         <div className="h-2.5 w-1/3 bg-light-400 dark:bg-dark-400 sm:h-12 sm:w-1/4 sm:rounded md:w-1/6" />
+//       </div>
+//     </div>
+//   );
+// }
 
 const LIMIT = 10;
 const Purchases: NextPageWithLayout = () => {
@@ -218,11 +219,11 @@ const Purchases: NextPageWithLayout = () => {
     >
       <h1 className="mb-3 text-15px font-medium text-dark dark:text-light">
         {t('text-my-purchase-list')}
-        <span className="ml-1 text-light-900">
+        {/* <span className="ml-1 text-light-900">
           ({downloadableFiles.length})
-        </span>
+        </span> */}
       </h1>
-
+      {/* 
       {isLoading &&
         !downloadableFiles.length &&
         rangeMap(LIMIT, (i) => <OrderItemLoader key={`order-loader-${i}`} />)}
@@ -236,7 +237,7 @@ const Purchases: NextPageWithLayout = () => {
         downloadableFiles.map((file) => (
           <OrderedItem key={file.id} item={file} />
         ))
-      )}
+      )} */}
 
       {hasNextPage && (
         <div className="mt-10 grid place-content-center">

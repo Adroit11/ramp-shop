@@ -12,16 +12,16 @@ export const useSettings = () => {
     language: locale,
   };
 
-  const { data, isLoading, error } = useQuery<Settings, Error>(
-    [API_ENDPOINTS.SETTINGS, formattedOptions],
-    ({ queryKey, pageParam }) =>
-      client.settings.all(Object.assign({}, queryKey[1], pageParam))
-  );
+  // const { data, isLoading, error } = useQuery<Settings, Error>(
+  //   [API_ENDPOINTS.SETTINGS, formattedOptions],
+  //   ({ queryKey, pageParam }) =>
+  //     client.settings.all(Object.assign({}, queryKey[1], pageParam))
+  // );
 
   return {
-    settings: data?.options,
-    isLoading,
-    error,
+    // settings: data?.options,
+    // isLoading,
+    // error,
   };
 };
 

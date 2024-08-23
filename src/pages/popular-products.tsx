@@ -1,7 +1,7 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import type { GetStaticProps } from 'next';
 import type { NextPageWithLayout } from '@/types';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Layout from '@/layouts/_layout';
 import { usePopularProducts } from '@/data/product';
 import Grid from '@/components/product/grid';
@@ -9,6 +9,9 @@ import Seo from '@/layouts/_seo';
 import routes from '@/config/routes';
 import ButtonGroup from '@/components/ui/button-group';
 import { useTranslation } from 'next-i18next';
+import { useQuery } from 'react-query';
+import { getProductsFn } from '@/services/products';
+import { ProductType } from '@/types/product';
 
 const MAP_RANGE_FILTER = [
   {
@@ -27,27 +30,34 @@ const MAP_RANGE_FILTER = [
 
 function Products() {
   let [selected, setRange] = useState(MAP_RANGE_FILTER[2]);
-  const { popularProducts, isLoading } = usePopularProducts({
-    range: selected.range,
+  const productQuery = useQuery(['get_products'], () => {
+    return getProductsFn();
   });
+
+  const products = useMemo(() => {
+    if (productQuery.data?.data) {
+      return productQuery.data.data as ProductType[];
+    }
+    return [];
+  }, [productQuery.isLoading, productQuery.data]);
   const { t } = useTranslation('common');
   return (
     <>
       <div className="flex flex-col-reverse flex-wrap items-center justify-between px-4 pt-5 pb-4 xs:flex-row xs:space-x-4 md:px-6 md:pt-6 lg:px-7 3xl:px-8">
         <div className="pt-3 xs:pt-0">
-          {t('text-total')} {popularProducts.length} {t('text-product-found')}
+          {t('text-total')} {products.length} {t('text-product-found')}
         </div>
-        <ButtonGroup
+        {/* <ButtonGroup
           items={MAP_RANGE_FILTER}
           selectedValue={selected}
           onChange={setRange}
-        />
+        /> */}
       </div>
       <Grid
-        products={popularProducts}
+        products={products}
         hasNextPage={false}
         isLoadingMore={false}
-        isLoading={isLoading}
+        isLoading={productQuery.isLoading}
       />
     </>
   );

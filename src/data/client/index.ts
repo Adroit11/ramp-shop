@@ -143,19 +143,19 @@ class Client {
     downloadable: (query?: OrderQueryOptions) =>
       HttpClient.get<OrderedFilePaginator>(
         API_ENDPOINTS.ORDERS_DOWNLOADS,
-        query
+        query,
       ),
     generateDownloadLink: (digital_file_id: string, name?: string) =>
       HttpClient.post<string>(
         API_ENDPOINTS.GENERATE_DOWNLOADABLE_PRODUCT_LINK,
         {
           digital_file_id,
-        }
+        },
       ),
     verify: (data: CheckoutVerificationInput) =>
       HttpClient.post<VerifiedCheckoutResponse>(
         API_ENDPOINTS.ORDERS_CHECKOUT_VERIFY,
-        data
+        data,
       ),
     create: (data: CreateOrderInput) =>
       HttpClient.post<Order>(API_ENDPOINTS.ORDERS, data),
@@ -192,22 +192,22 @@ class Client {
     forgotPassword: (input: ForgetPasswordInput) =>
       HttpClient.post<PasswordChangeResponse>(
         API_ENDPOINTS.USERS_FORGOT_PASSWORD,
-        input
+        input,
       ),
     verifyForgotPasswordToken: (input: VerifyForgetPasswordTokenInput) =>
       HttpClient.post<PasswordChangeResponse>(
         API_ENDPOINTS.USERS_VERIFY_FORGOT_PASSWORD_TOKEN,
-        input
+        input,
       ),
     resetPassword: (input: ResetPasswordInput) =>
       HttpClient.post<PasswordChangeResponse>(
         API_ENDPOINTS.USERS_RESET_PASSWORD,
-        input
+        input,
       ),
     changePassword: (input: ChangePasswordInput) =>
       HttpClient.post<PasswordChangeResponse>(
         API_ENDPOINTS.USERS_CHANGE_PASSWORD,
-        input
+        input,
       ),
     logout: () => HttpClient.post<boolean>(API_ENDPOINTS.USERS_LOGOUT, {}),
   };
@@ -232,7 +232,7 @@ class Client {
     create: (input: CreateAbuseReportInput) =>
       HttpClient.post<Review>(
         API_ENDPOINTS.PRODUCTS_REVIEWS_ABUSE_REPORT,
-        input
+        input,
       ),
   };
   reviews = {
@@ -252,7 +252,7 @@ class Client {
     update: (input: UpdateReviewInput) =>
       HttpClient.put<ReviewResponse>(
         `${API_ENDPOINTS.PRODUCTS_REVIEWS}/${input.id}`,
-        input
+        input,
       ),
   };
   wishlist = {
@@ -266,13 +266,13 @@ class Client {
     toggle: (input: { product_id: string }) =>
       HttpClient.post<{ in_wishlist: boolean }>(
         API_ENDPOINTS.USERS_WISHLIST_TOGGLE,
-        input
+        input,
       ),
     remove: (id: string) =>
       HttpClient.delete<Wishlist>(`${API_ENDPOINTS.WISHLIST}/${id}`),
     checkIsInWishlist: ({ product_id }: { product_id: string }) =>
       HttpClient.get<boolean>(
-        `${API_ENDPOINTS.WISHLIST}/in_wishlist/${product_id}`
+        `${API_ENDPOINTS.WISHLIST}/in_wishlist/${product_id}`,
       ),
   };
   myQuestions = {
@@ -307,8 +307,8 @@ class Client {
     },
   };
   settings = {
-    all: (params?: SettingsQueryOptions) =>
-      HttpClient.get<Settings>(API_ENDPOINTS.SETTINGS, { ...params }),
+    all: (params?: SettingsQueryOptions) => {},
+    // HttpClient.get<Settings>(API_ENDPOINTS.SETTINGS, { ...params }),
     contactUs: (input: CreateContactUsInput) =>
       HttpClient.post<any>(API_ENDPOINTS.SETTINGS_CONTACT_US, input),
     upload: (input: File[]) => {
@@ -353,7 +353,7 @@ class Client {
             issued_by,
           }),
           with: 'shop',
-        }
+        },
       ),
     get: (id: string) =>
       HttpClient.get<FAQS>(`${API_ENDPOINTS.TERMS_AND_CONDITIONS}/${id}`),

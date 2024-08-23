@@ -36,7 +36,7 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
             'flex w-full flex-col',
             collapse
               ? 'ltr:sm:pl-60 rtl:sm:pr-60 ltr:xl:pl-[75px] rtl:xl:pr-[75px]'
-              : 'ltr:sm:pl-[75px] rtl:sm:pr-[75px] ltr:xl:pl-60 rtl:xl:pr-60'
+              : 'ltr:sm:pl-[75px] rtl:sm:pr-[75px] ltr:xl:pl-60 rtl:xl:pr-60',
           )}
         >
           {children}

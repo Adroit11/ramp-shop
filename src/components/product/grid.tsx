@@ -9,14 +9,16 @@ import ItemNotFound from '@/components/ui/item-not-found';
 import rangeMap from '@/lib/range-map';
 import { staggerTransition } from '@/lib/framer-motion/stagger-transition';
 import { useTranslation } from 'next-i18next';
+import { ProductType, ShopType } from '@/types/product';
 
 interface GridProps {
-  products: Product[];
+  products: ProductType[] | ShopType[];
   onLoadMore?: () => void;
   hasNextPage?: boolean;
   isLoadingMore?: boolean;
   isLoading?: boolean;
   limit?: number;
+  isHome?: boolean;
 }
 
 export default function Grid({
@@ -24,6 +26,7 @@ export default function Grid({
   onLoadMore,
   hasNextPage,
   isLoadingMore,
+  isHome,
   isLoading,
   limit = 15,
 }: GridProps) {
@@ -40,10 +43,14 @@ export default function Grid({
   }
   return (
     <div className="w-full px-4 pb-9 pt-5 md:px-6 md:pb-10 md:pt-6 lg:px-7 lg:pb-12 3xl:px-8">
+      {isHome ? (
+        <h2 className="mb-7 mt-2 text-xl font-semibold">Explore Our Stores</h2>
+      ) : null}
+
       <motion.div
         variants={staggerTransition(0.025)}
         className={cn(
-          'grid grid-cols-1 gap-5 xs:grid-cols-2 md:grid-cols-[repeat(auto-fill,minmax(300px,1fr))] lg:gap-6 3xl:gap-7',
+          'grid grid-cols-1 gap-x-5 gap-y-10 xs:grid-cols-2 md:grid-cols-[repeat(auto-fill,minmax(300px,1fr))] lg:gap-x-6 3xl:gap-x-7',
           {
             '2xl:grid-cols-4 3xl:grid-cols-5 4xl:grid-cols-[repeat(auto-fill,minmax(300px,1fr))]':
               isGridCompact,
@@ -57,7 +64,7 @@ export default function Grid({
               <ProductCardLoader key={i} uniqueKey={`product-${i}`} />
             ))
           : products.map((product) => (
-              <Card key={product.id} product={product} />
+              <Card key={product.id} product={product} isShop={isHome} />
             ))}
       </motion.div>
 

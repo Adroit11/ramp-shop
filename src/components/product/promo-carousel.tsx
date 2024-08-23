@@ -12,7 +12,7 @@ const carouselBreakpoints = {
   },
 };
 
-export default function PromoCarousel({ types }: { types: Type[] }) {
+export default function PromoCarousel() {
   return (
     <div className="relative border-b border-light-300 bg-light-100 pl-4 pt-5 dark:border-dark-300 dark:bg-dark-100 md:pt-6 ltr:md:pl-6 rtl:md:pr-6 ltr:lg:pl-7 rtl:lg:pr-7 ltr:3xl:pl-8 rtl:3xl:pr-8">
       <Swiper
@@ -28,22 +28,19 @@ export default function PromoCarousel({ types }: { types: Type[] }) {
           prevEl: '.prev',
         }}
       >
-        {types?.map(
-          (type, index) =>
-            type?.promotional_sliders?.original && (
-              <SwiperSlide
-                key={`promo-carousel-key-${index}`}
-                className="relative mb-5 aspect-[37/16] w-full  bg-light-200 dark:bg-dark-250 2xl:mb-6"
-              >
-                <Image
-                  fill
-                  alt={`promo-carousel-${index}`}
-                  src={type?.promotional_sliders?.original}
-                  className="object-cover"
-                />
-              </SwiperSlide>
-            )
-        )}
+        {[1, 2, 3, 4, 5].map((nu) => (
+          <SwiperSlide
+            key={`promo-carousel-key-${nu}`}
+            className="relative mb-5 aspect-[37/16] w-full  bg-light-200 dark:bg-dark-250 2xl:mb-6"
+          >
+            <Image
+              fill
+              alt={`promo-carousel-${nu}`}
+              src={`/${nu}.png`}
+              className="object-cover"
+            />
+          </SwiperSlide>
+        ))}
       </Swiper>
       <div className="absolute left-0 top-2/4 z-10 flex w-full items-center justify-between pl-1 pr-4 sm:pr-6 md:pl-2.5">
         <button className="prev flex h-8 w-8 -translate-y-1/2 transform cursor-pointer items-center justify-center rounded-full border border-light-400 bg-light text-dark-100 shadow-xl hover:bg-light-200 focus:outline-none rtl:rotate-180 dark:border-dark-400 dark:bg-dark-400 dark:text-white hover:dark:bg-dark-300 xl:h-9 xl:w-9">

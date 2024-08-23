@@ -1,19 +1,17 @@
 import Banner from '@/components/authors/banner';
 import Nav from '@/components/authors/nav';
 import Products from '@/components/authors/products';
-import { getStaticPaths, getStaticProps } from '@/data/ssr/shop.ssr';
+// import { getStaticPaths, getStaticProps } from '@/data/ssr/shop.ssr';
 import Layout from '@/layouts/_layout';
 import type { NextPageWithLayout } from '@/types';
 import type { InferGetStaticPropsType } from 'next';
-export { getStaticPaths, getStaticProps };
+// export { getStaticPaths, getStaticProps };
 
-const ShopPage: NextPageWithLayout<
-  InferGetStaticPropsType<typeof getStaticProps>
-> = ({ shop }) => {
-  const { name, logo, cover_image, slug } = shop;
+const ShopPage = () => {
+  // const { name, logo, cover_image, slug } = shop;
   return (
     <>
-      <Banner
+      {/* <Banner
         coverImage={cover_image?.original}
         logo={logo?.original}
         name={name}
@@ -24,12 +22,12 @@ const ShopPage: NextPageWithLayout<
         <div className="flex h-full pt-6 focus:outline-none md:pt-8 lg:pt-10">
           <Products shopId={shop.id} />
         </div>
-      </div>
+      </div> */}
     </>
   );
 };
 
-ShopPage.getLayout = function getLayout(page) {
+ShopPage.getLayout = function getLayout(page: any) {
   return <Layout>{page}</Layout>;
 };
 

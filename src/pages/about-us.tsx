@@ -97,7 +97,7 @@ const AboutPage: NextPageWithLayout = () => {
         description="Fastest digital download template built with React, NextJS, TypeScript, React-Query and Tailwind CSS."
         url={routes.about}
       />
-      <div className="mx-auto flex h-full w-full max-w-screen-xl flex-col p-4 sm:p-5">
+      {/* <div className="mx-auto flex h-full w-full max-w-screen-xl flex-col p-4 sm:p-5">
         <PageHeading
           title={t('about-us-page-title')}
           subtitle={t('about-us-page-subtitle')}
@@ -177,7 +177,8 @@ const AboutPage: NextPageWithLayout = () => {
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
+      TEMP
     </>
   );
 };
