@@ -22,8 +22,8 @@ import type { SubmitHandler } from 'react-hook-form';
 
 const ContactUsPage: NextPageWithLayout = () => {
   const { t } = useTranslation('common');
-  const { settings } = useSettings();
-  const { contactDetails } = settings ?? {};
+  // const { settings } = useSettings();
+  // const { contactDetails } = settings ?? {};
   let [reset, setReset] = useState<CreateContactUsInput | null>(null);
   const { mutate, isLoading, isSuccess } = useContactUs();
   const onSubmit: SubmitHandler<CreateContactUsInput> = (values) => {
@@ -64,9 +64,7 @@ const ContactUsPage: NextPageWithLayout = () => {
               <ContactInfo
                 icon={<LocationIcon className="h-12 w-12" />}
                 title={t('contact-us-office-title')}
-                description={
-                  '17, Fatai Aina Close,  Ojodu Estate, Ojo Lagos State'
-                }
+                description={'17, Fatai Aina Close,  Ojodu Estate, Lagos State'}
               />
               <ContactInfo
                 icon={<PhoneIcon className="h-10 w-10" />}

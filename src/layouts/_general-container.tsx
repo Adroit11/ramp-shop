@@ -11,13 +11,13 @@ import { useTranslation } from 'next-i18next';
 
 const menuItems = [
   {
-    label: 'text-help-page-title',
-    path: routes.help,
+    label: 'Refund',
+    path: routes.refund,
   },
-  {
-    label: 'text-license-agreement',
-    path: routes.licensing,
-  },
+  // {
+  //   label: 'text-license-agreement',
+  //   path: routes.licensing,
+  // },
   {
     label: 'text-terms-and-conditions',
     path: routes.terms,

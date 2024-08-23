@@ -15,36 +15,56 @@ import { fadeInBottomWithScaleX } from '@/lib/framer-motion/fade-in-bottom';
 import { isFree } from '@/lib/is-free';
 import { useTranslation } from 'next-i18next';
 import { ExternalIcon } from '@/components/icons/external-icon';
+import { ProductType, ShopType } from '@/types/product';
 
-export default function Card({ product }: { product: Product }) {
-  const { name, slug, image, shop, is_external } = product ?? {};
-  const { openModal } = useModalAction();
+export default function Card({
+  product,
+  isShop,
+}: {
+  product: ProductType | ShopType;
+  isShop?: boolean;
+}) {
   const { isGridCompact } = useGridSwitcher();
-  const { price, basePrice } = usePrice({
-    amount: product.sale_price ? product.sale_price : product.price,
-    baseAmount: product.price,
-  });
   const goToContactUsPage = (
     e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>,
   ) => {
     e.stopPropagation();
-    Router.push('contact-us');
+    Router.push(
+      isShop
+        ? `/products/${(product as ShopType).uid}`
+        : `/products/${(product as ProductType).uid ?? 2}?prd=${btoa(
+            product.name,
+          )}`,
+    );
   };
+
   const { t } = useTranslation('common');
-  const isFreeItem = isFree(product?.sale_price ?? product?.price);
+
   return (
-    <motion.div variants={fadeInBottomWithScaleX()} title={name}>
-      <div className="group relative flex aspect-[3/2] w-full justify-center overflow-hidden">
-        {is_external ? (
+    <motion.div variants={fadeInBottomWithScaleX()} title={product.name}>
+      <div
+        className={cn(
+          'group relative flex  w-full justify-center overflow-hidden',
+          {
+            'aspect-[3/2]': !isShop,
+            'aspect-video': isShop,
+          },
+        )}
+      >
+        {/* {is_external ? (
           <div className="absolute right-2 top-2 z-10 rounded-md bg-dark-300/70 px-2 py-2 text-white">
             <ExternalIcon className="h-5 w-5" />
           </div>
-        ) : null}
+        ) : null} */}
         <Image
-          alt={name}
+          alt={product.name}
           fill
           quality={100}
-          src={image?.thumbnail ?? placeholder}
+          src={
+            isShop
+              ? (product as ShopType).cover_image ?? placeholder
+              : (product as ProductType).image ?? placeholder
+          }
           className="bg-light-500 object-cover dark:bg-dark-400"
           sizes="(max-width: 768px) 100vw,
               (max-width: 1200px) 50vw,
@@ -57,7 +77,7 @@ export default function Card({ product }: { product: Product }) {
           <button
             onClick={goToContactUsPage}
             className={cn(
-              'relative z-[11] text-center font-medium text-light',
+              'relative z-[11] text-center font-medium text-light flex flex-col items-center gap-px',
               isGridCompact ? 'text-xs' : 'text-13px',
             )}
           >
@@ -71,30 +91,76 @@ export default function Card({ product }: { product: Product }) {
                 className={cn(isGridCompact ? 'h-4 w-4' : 'h-5 w-5')}
               />
             </div>
-            {'Become A Reseller'}
+            {isShop ? 'Enter Store' : 'Buy Product'}
           </button>
         </div>
       </div>
-      <div className="flex items-start justify-between pt-3.5">
-        <div className="relative flex h-8 w-8 flex-shrink-0 overflow-hidden 4xl:h-9 4xl:w-9">
-          <Image
-            alt={shop?.name}
-            quality={100}
-            fill
-            src={shop?.logo?.thumbnail ?? placeholder}
-            className="rounded-full bg-light-500 object-cover dark:bg-dark-400"
-            sizes="(max-width: 768px) 100vw,
+      <div
+        className={cn('relative flex  justify-between pt-3.5', {
+          'items-start': isShop,
+          'items-center': !isShop,
+        })}
+      >
+        <div
+          className={cn({
+            'p-1.5 rounded-full -translate-y-2/3 bg-dark-200 absolute z-20':
+              isShop,
+          })}
+        >
+          <div
+            className={cn({
+              'relative flex h-20 w-20 flex-shrink-0 overflow-hidden 4xl:h-24 4xl:w-24':
+                isShop,
+              'relative flex h-8 w-8 flex-shrink-0 overflow-hidden 4xl:h-9 4xl:w-9':
+                !isShop,
+            })}
+          >
+            <Image
+              alt={
+                isShop
+                  ? (product as ShopType).name ?? ''
+                  : (product as ProductType).shop?.name ?? ''
+              }
+              quality={100}
+              fill
+              src={
+                isShop
+                  ? (product as ShopType).logo ?? placeholder
+                  : (product as ProductType).shop?.logo ?? placeholder
+              }
+              className="rounded-full bg-light-500 object-cover dark:bg-dark-400"
+              sizes="(max-width: 768px) 100vw,
               (max-width: 1200px) 50vw,
               33vw"
-          />
+            />
+          </div>
         </div>
-        <div className="-mt-[1px] flex flex-col truncate ltr:mr-auto ltr:pl-2.5 rtl:ml-auto rtl:pr-2.5 rtl:text-right">
+        <div
+          className={cn({
+            '-mt-[4px] flex flex-col truncate ml-24': isShop,
+            '-mt-[1px] flex items-center truncate ltr:mr-auto ltr:pl-2.5 rtl:ml-auto rtl:pr-2.5 rtl:text-right w-full':
+              !isShop,
+          })}
+        >
           <h3
-            title={name}
-            className="mb-0.5 truncate font-medium text-dark-100 dark:text-light"
+            title={product.name}
+            className="mb-0.5 truncate font-medium text-dark-100 dark:text-light capitalize"
           >
-            <AnchorLink href={routes.contact}>{name}</AnchorLink>
+            <AnchorLink href={routes.product(product.uid)}>
+              {product.name}
+            </AnchorLink>
           </h3>
+
+          {!isShop ? (
+            <div className="ml-auto flex flex-shrink-0 flex-col items-end pl-2.5">
+              <span className="rounded-2xl bg-light-500 px-1.5 py-0.5 text-13px font-semibold uppercase text-brand dark:bg-dark-300 dark:text-brand-dark">
+                {new Intl.NumberFormat('en-US', {
+                  style: 'currency',
+                  currency: 'USD',
+                }).format((product as ProductType).price ?? 0)}
+              </span>
+            </div>
+          ) : null}
           {/* <AnchorLink
             href={routes.shopUrl(shop?.slug)}
             className="font-medium text-light-base hover:text-brand dark:text-dark-800 dark:hover:text-brand"
@@ -103,7 +169,7 @@ export default function Card({ product }: { product: Product }) {
           </AnchorLink> */}
         </div>
 
-        <div className="flex flex-shrink-0 flex-col items-end pl-2.5">
+        {/* <div className="flex flex-shrink-0 flex-col items-end pl-2.5">
           <span className="rounded-2xl bg-light-500 px-1.5 py-0.5 text-13px font-semibold uppercase text-brand dark:bg-dark-300 dark:text-brand-dark">
             {isFreeItem ? t('text-free') : price}
           </span>
@@ -112,7 +178,7 @@ export default function Card({ product }: { product: Product }) {
               {basePrice}
             </del>
           )}
-        </div>
+        </div> */}
       </div>
     </motion.div>
   );

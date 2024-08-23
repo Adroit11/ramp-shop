@@ -10,10 +10,10 @@ import { useWindowSize } from '@/lib/hooks/use-window-size';
 import { useCart } from '@/components/cart/lib/cart.context';
 import routes from '@/config/routes';
 import { useTranslation } from 'next-i18next';
-import { dehydrate, QueryClient } from 'react-query';
-import { API_ENDPOINTS } from '@/data/client/endpoints';
-import client from '@/data/client';
-import type { SettingsQueryOptions } from '@/types';
+// import { dehydrate, QueryClient } from 'react-query';
+// import { API_ENDPOINTS } from '@/data/client/endpoints';
+// import client from '@/data/client';
+// import type { SettingsQueryOptions } from '@/types';
 import { useOrderPayment, useOrder } from '@/data/order';
 import { toast } from 'react-hot-toast';
 
@@ -105,19 +105,19 @@ ThankYou.getLayout = function getLayout(page) {
   return <GeneralLayout>{page}</GeneralLayout>;
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
-  const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(
-    [API_ENDPOINTS.SETTINGS, { language: locale }],
-    ({ queryKey }) => client.settings.all(queryKey[1] as SettingsQueryOptions)
-  );
+// export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+//   const queryClient = new QueryClient();
+//   await queryClient.prefetchQuery(
+//     [API_ENDPOINTS.SETTINGS, { language: locale }],
+//     ({ queryKey }) => client.settings.all(queryKey[1] as SettingsQueryOptions)
+//   );
 
-  return {
-    props: {
-      ...(await serverSideTranslations(locale!, ['common'])),
-      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-    },
-  };
-};
+//   return {
+//     props: {
+//       ...(await serverSideTranslations(locale!, ['common'])),
+//       dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+//     },
+//   };
+// };
 
 export default ThankYou;

@@ -2,60 +2,60 @@ import type { NextPageWithLayout } from '@/types';
 import { useRouter } from 'next/router';
 import routes from '@/config/routes';
 import GeneralLayout from '@/layouts/_general-layout';
-import CartItemList from '@/components/cart/cart-item-list';
-import CartEmpty from '@/components/cart/cart-empty';
-import Button from '@/components/ui/button';
-import PhoneInput from '@/components/ui/forms/phone-input';
-import { useCart } from '@/components/cart/lib/cart.context';
-import usePrice from '@/lib/hooks/use-price';
+// import CartItemList from '@/components/cart/cart-item-list';
+// import CartEmpty from '@/components/cart/cart-empty';
+// import Button from '@/components/ui/button';
+// import PhoneInput from '@/components/ui/forms/phone-input';
+// import { useCart } from '@/components/cart/lib/cart.context';
+// import usePrice from '@/lib/hooks/use-price';
 import Seo from '@/layouts/_seo';
-import { LongArrowIcon } from '@/components/icons/long-arrow-icon';
-import client from '@/data/client';
-import { useMutation } from 'react-query';
-import CartCheckout from '@/components/cart/cart-checkout';
-import { useMe } from '@/data/user';
+// import { LongArrowIcon } from '@/components/icons/long-arrow-icon';
+// import client from '@/data/client';
+// import { useMutation } from 'react-query';
+// import CartCheckout from '@/components/cart/cart-checkout';
+// import { useMe } from '@/data/user';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import type { GetStaticProps } from 'next';
-import { toast } from 'react-hot-toast';
+// import { toast } from 'react-hot-toast';
 
 const CheckoutPage: NextPageWithLayout = () => {
   const router = useRouter();
-  const { me } = useMe();
+  // const { me } = useMe();
   const { t } = useTranslation('common');
-  const {
-    items,
-    total,
-    totalItems,
-    isEmpty,
-    setVerifiedResponse,
-    verifiedResponse,
-  } = useCart();
-  const { price: totalPrice } = usePrice({
-    amount: total,
-  });
-  const { mutate, isLoading } = useMutation(client.orders.verify, {
-    onSuccess: (res) => {
-      setVerifiedResponse(res);
-    },
-    onError: (error: any) => {
-      const {
-        response: { data },
-      }: any = error ?? {};
-      toast.error(data?.message);
-    },
-  });
-  function verify() {
-    mutate({
-      amount: total,
-      products: items.map((item) => ({
-        product_id: item.id,
-        order_quantity: item.quantity,
-        unit_price: item.price,
-        subtotal: item.price * item.quantity,
-      })),
-    });
-  }
+  // const {
+  //   items,
+  //   total,
+  //   totalItems,
+  //   isEmpty,
+  //   setVerifiedResponse,
+  //   verifiedResponse,
+  // } = useCart();
+  // const { price: totalPrice } = usePrice({
+  //   amount: total,
+  // });
+  // const { mutate, isLoading } = useMutation(client.orders.verify, {
+  //   onSuccess: (res) => {
+  //     setVerifiedResponse(res);
+  //   },
+  //   onError: (error: any) => {
+  //     const {
+  //       response: { data },
+  //     }: any = error ?? {};
+  //     toast.error(data?.message);
+  //   },
+  // });
+  // function verify() {
+  //   mutate({
+  //     amount: total,
+  //     products: items.map((item) => ({
+  //       product_id: item.id,
+  //       order_quantity: item.quantity,
+  //       unit_price: item.price,
+  //       subtotal: item.price * item.quantity,
+  //     })),
+  //   });
+  // }
   return (
     <>
       <Seo
@@ -63,7 +63,7 @@ const CheckoutPage: NextPageWithLayout = () => {
         description="Fastest digital download template built with React, NextJS, TypeScript, React-Query and Tailwind CSS."
         url={routes?.checkout}
       />
-      <div className="mx-auto flex h-full w-full max-w-screen-sm flex-col p-4 pt-6 sm:p-5 sm:pt-8 md:pt-10 3xl:pt-12">
+      {/* <div className="mx-auto flex h-full w-full max-w-screen-sm flex-col p-4 pt-6 sm:p-5 sm:pt-8 md:pt-10 3xl:pt-12">
         {!isEmpty && Boolean(verifiedResponse) ? (
           <div className="mb-4 bg-light shadow-card dark:bg-dark-250 dark:shadow-none md:mb-5 3xl:mb-6">
             <h2 className="flex items-center justify-between border-b border-light-400 px-5 py-4 text-sm font-medium text-dark dark:border-dark-400 dark:text-light sm:py-5 sm:px-7 md:text-base">
@@ -124,7 +124,8 @@ const CheckoutPage: NextPageWithLayout = () => {
             {!isEmpty && Boolean(verifiedResponse) && <CartCheckout />}
           </div>
         </div>
-      </div>
+      </div> */}
+      temp
     </>
   );
 };

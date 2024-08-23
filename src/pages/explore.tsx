@@ -27,16 +27,16 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       queryClient.prefetchInfiniteQuery(
         [API_ENDPOINTS.PRODUCTS, { language: locale }],
         ({ queryKey }) =>
-          client.products.all(queryKey[1] as ProductQueryOptions)
+          client.products.all(queryKey[1] as ProductQueryOptions),
       ),
       queryClient.prefetchInfiniteQuery(
         [API_ENDPOINTS.CATEGORIES, { limit: 100, language: locale }],
         ({ queryKey }) =>
-          client.categories.all(queryKey[1] as CategoryQueryOptions)
+          client.categories.all(queryKey[1] as CategoryQueryOptions),
       ),
       queryClient.prefetchInfiniteQuery(
         [API_ENDPOINTS.TYPES, { limit: 100, language: locale }],
-        ({ queryKey }) => client.types.all(queryKey[1] as TypeQueryOptions)
+        ({ queryKey }) => client.types.all(queryKey[1] as TypeQueryOptions),
       ),
     ]);
     return {
@@ -63,7 +63,7 @@ function Products() {
     });
   return (
     <Grid
-      products={products}
+      products={[]}
       onLoadMore={loadMore}
       hasNextPage={hasNextPage}
       isLoadingMore={isLoadingMore}
@@ -74,7 +74,8 @@ function Products() {
 
 function PromotionalSlider() {
   const { types } = useTypes({ limit: 100 });
-  return !isEmpty(types) ? <PromoCarousel types={types} /> : null;
+  // return !isEmpty(types) ? <PromoCarousel types={types} /> : null;
+  return !null;
 }
 
 const Explore: NextPageWithLayout = () => {

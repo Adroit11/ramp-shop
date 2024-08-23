@@ -22,12 +22,12 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       queryClient.prefetchQuery(
         [API_ENDPOINTS.SETTINGS, { language: locale }],
         ({ queryKey }) =>
-          client.settings.all(queryKey[1] as SettingsQueryOptions)
+          client.settings.all(queryKey[1] as SettingsQueryOptions),
       ),
       queryClient.prefetchInfiniteQuery(
         [API_ENDPOINTS.FOLLOWED_SHOPS_PRODUCTS, { language: locale }],
         ({ queryKey }) =>
-          client.products.all(queryKey[1] as FollowedShopsQueryOptions)
+          client.products.all(queryKey[1] as FollowedShopsQueryOptions),
       ),
     ]);
     return {
@@ -56,7 +56,7 @@ function Products() {
         </div>
       </div>
       <Grid
-        products={products}
+        products={[]}
         hasNextPage={false}
         isLoadingMore={false}
         isLoading={isLoading}

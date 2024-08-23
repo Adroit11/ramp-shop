@@ -3,33 +3,31 @@ import Help from '@/components/authors/help';
 import Nav from '@/components/authors/nav';
 import ErrorMessage from '@/components/ui/error-message';
 import { useFAQs } from '@/data/faq';
-import { getStaticPaths, getStaticProps } from '@/data/ssr/help.ssr';
+// import { getStaticPaths, getStaticProps } from '@/data/ssr/help.ssr';
 import Layout from '@/layouts/_layout';
 import type { NextPageWithLayout } from '@/types';
 import type { InferGetStaticPropsType } from 'next';
-export { getStaticPaths, getStaticProps };
+// export { getStaticPaths, getStaticProps };
 import { motion } from 'framer-motion';
 import { fadeInBottom } from '@/lib/framer-motion/fade-in-bottom';
 
-const ShopPage: NextPageWithLayout<
-  InferGetStaticPropsType<typeof getStaticProps>
-> = ({ shop }) => {
-  const { name, logo, cover_image, slug } = shop;
-  const { faqs, isLoading, error, loadMore, hasNextPage, isLoadingMore } =
-    useFAQs({
-      faq_type: 'shop',
-      issued_by: name,
-      shop_id: shop?.id,
-      limit: 10,
-      orderBy: 'created_at',
-      sortedBy: 'DESC',
-    });
+const ShopPage = () => {
+  // const { name, logo, cover_image, slug } = shop;
+  // const { faqs, isLoading, error, loadMore, hasNextPage, isLoadingMore } =
+  //   useFAQs({
+  //     faq_type: 'shop',
+  //     issued_by: name,
+  //     shop_id: shop?.id,
+  //     limit: 10,
+  //     orderBy: 'created_at',
+  //     sortedBy: 'DESC',
+  //   });
 
-  if (error) return <ErrorMessage message={error?.message} />;
+  // if (error) return <ErrorMessage message={error?.message} />;
 
   return (
     <>
-      <Banner
+      {/* <Banner
         coverImage={cover_image?.original}
         logo={logo?.original}
         name={name}
@@ -47,12 +45,12 @@ const ShopPage: NextPageWithLayout<
           isLoadingMore={isLoadingMore}
           loadMore={loadMore}
         />
-      </motion.div>
+      </motion.div> */}
     </>
   );
 };
 
-ShopPage.getLayout = function getLayout(page) {
+ShopPage.getLayout = function getLayout(page: any) {
   return <Layout>{page}</Layout>;
 };
 

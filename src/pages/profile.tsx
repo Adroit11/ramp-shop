@@ -42,24 +42,24 @@ const profileValidationSchema = yup.object().shape({
 const ProfilePage: NextPageWithLayout = () => {
   const { t } = useTranslation('common');
   const queryClient = useQueryClient();
-  const { me } = useMe();
-  const { mutate, isLoading } = useMutation(client.users.update, {
-    onSuccess: () => {
-      toast.success(<b>{t('text-profile-page-success-toast')}</b>, {
-        className: '-mt-10 xs:mt-0',
-      });
-    },
-    onError: (error) => {
-      toast.error(<b>{t('text-profile-page-error-toast')}</b>, {
-        className: '-mt-10 xs:mt-0',
-      });
-      console.log(error);
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries(API_ENDPOINTS.USERS_ME);
-    },
-  });
-  const onSubmit: SubmitHandler<UpdateProfileInput> = (data) => mutate(data);
+  // const { me } = useMe();
+  // const { mutate, isLoading } = useMutation(client.users.update, {
+  //   onSuccess: () => {
+  //     toast.success(<b>{t('text-profile-page-success-toast')}</b>, {
+  //       className: '-mt-10 xs:mt-0',
+  //     });
+  //   },
+  //   onError: (error) => {
+  //     toast.error(<b>{t('text-profile-page-error-toast')}</b>, {
+  //       className: '-mt-10 xs:mt-0',
+  //     });
+  //     console.log(error);
+  //   },
+  //   onSettled: () => {
+  //     queryClient.invalidateQueries(API_ENDPOINTS.USERS_ME);
+  //   },
+  // });
+  // const onSubmit: SubmitHandler<UpdateProfileInput> = (data) => mutate(data);
 
   return (
     <motion.div
@@ -69,7 +69,7 @@ const ProfilePage: NextPageWithLayout = () => {
       <h1 className="mb-5 text-15px font-medium text-dark dark:text-light sm:mb-6">
         {t('text-profile-page-title')}
       </h1>
-      <Form<UpdateProfileInput>
+      {/* <Form<UpdateProfileInput>
         onSubmit={onSubmit}
         useFormProps={{
           defaultValues: pick(me, [
@@ -163,7 +163,7 @@ const ProfilePage: NextPageWithLayout = () => {
             </div>
           </>
         )}
-      </Form>
+      </Form> */}
     </motion.div>
   );
 };
