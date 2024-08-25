@@ -24,6 +24,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
       onSubmit={onSubmit}
       validationSchema={contactUsFormSchema}
       resetFields={reset}
+      id="contact-form"
     >
       {({ register, formState: { errors } }) => (
         <>

@@ -11,6 +11,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@headlessui/react": "1.7.17",
     "@hookform/resolvers": "3.3.2",
     "@stripe/react-stripe-js": "2.4.0",
