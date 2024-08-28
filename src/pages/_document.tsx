@@ -11,6 +11,7 @@ class CustomDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
     return Document.getInitialProps(ctx);
   }
+
   render() {
     const { locale } = this.props.__NEXT_DATA__;
     const dir = getDirection(locale);
@@ -23,6 +24,23 @@ class CustomDocument extends Document {
             rel="stylesheet"
           />{' '}
           <link rel="icon" href="/favicon.png" />
+          <meta
+            name="description"
+            content={'Ramp | New Customers, More Sales'}
+          />
+          <meta property="og:type" content={'website'} />
+          <meta
+            property="og:title"
+            content={'Ramp | New Customers, More Sales'}
+          />
+          <meta
+            property="og:description"
+            content={'Ramp | New Customers, More Sales'}
+          />
+          <meta
+            property="og:image"
+            content="http://res.cloudinary.com/dc9kfp5gt/image/upload/v1724451002/RampIcon/nk4lnmcd8vhwhet6mvn8.svg"
+          />
         </Head>
         <body>
           <Main />

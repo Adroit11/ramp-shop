@@ -161,6 +161,7 @@ export interface Attachment {
 }
 
 export interface Shop {
+  currency: string;
   id: string;
   name: string;
   slug: string;
@@ -449,6 +450,7 @@ export interface Product {
   is_external: boolean;
   external_product_url: string;
   external_product_button_text: string;
+  currency: string;
 }
 
 export interface ProductPaginator extends PaginatorInfo<Product> {}

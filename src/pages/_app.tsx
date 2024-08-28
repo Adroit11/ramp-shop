@@ -26,6 +26,7 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { getDirection } from '@/lib/constants';
 import Maintenance from '@/components/maintenance/layout';
+import Head from 'next/head';
 const PrivateRoute = dynamic(() => import('@/layouts/_private-route'), {
   ssr: false,
 });

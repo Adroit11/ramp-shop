@@ -5,6 +5,12 @@ export interface ProductType {
   slug: string;
   product_type: string;
   shop: {
+    currency: {
+      code: string;
+      exchange_rate: string;
+      name: string;
+      uid: string;
+    };
     id: number;
     uid: string;
     owner_id: number;
@@ -24,6 +30,7 @@ export interface ProductType {
   price: number;
   quantity: number;
   visibility: 1 | 0;
+  currency: string;
 }
 
 export interface ShopType {

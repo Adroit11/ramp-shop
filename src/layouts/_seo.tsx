@@ -5,14 +5,14 @@ interface SeoProps extends NextSeoProps {
 const Seo = ({ title, description, url, ...props }: SeoProps) => {
   return (
     <NextSeo
-      title={title}
-      description={description}
+      title={'Ramp | New Customers, More Sales'}
+      description={'Ramp | New Customers, More Sales'}
       openGraph={{
-        url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/${url}`,
-        title,
-        description,
+        url: `http://res.cloudinary.com/dc9kfp5gt/image/upload/v1724451002/RampIcon/nk4lnmcd8vhwhet6mvn8.svg`,
+        title: 'Ramp | New Customers, More Sales',
+        description: 'Ramp | New Customers, More Sales',
       }}
-      {...props}
+      // {...props}
     />
   );
 };

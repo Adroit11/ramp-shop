@@ -154,9 +154,9 @@ export default function Card({
           {!isShop ? (
             <div className="ml-auto flex flex-shrink-0 flex-col items-end pl-2.5">
               <span className="rounded-2xl bg-light-500 px-1.5 py-0.5 text-13px font-semibold uppercase text-brand dark:bg-dark-300 dark:text-brand-dark">
+                {(product as ProductType).currency ?? ''}{' '}
                 {new Intl.NumberFormat('en-US', {
-                  style: 'currency',
-                  currency: 'USD',
+                  style: 'decimal',
                 }).format((product as ProductType).price ?? 0)}
               </span>
             </div>

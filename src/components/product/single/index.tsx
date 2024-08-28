@@ -19,7 +19,7 @@ import {
 } from '@/lib/framer-motion/fade-in-bottom';
 import { Product } from '@/types';
 import { isEmpty } from 'lodash';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { Dispatch, useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 import Input from '@/components/ui/forms/input';
 import Button from '@/components/ui/button';
@@ -32,10 +32,15 @@ import { useWindowSize } from 'react-use';
 import { ExternalIcon } from '@/components/icons/external-icon';
 import Badge from '@/components/ui/badge';
 import { useSearchParams } from 'next/navigation';
+import { CurrencyType, useCurrency } from '@/hooks/useCurrency';
+import { SetStateAction } from 'jotai';
 
 type SingleProps = {
   products: Product[];
   prd?: string | null;
+  currencies: CurrencyType[] | null;
+  setRampCurrency: Dispatch<SetStateAction<string>>;
+  rampCurrency: string;
 };
 
 // export function getPreviews(gallery: any[], image: any) {
@@ -44,7 +49,13 @@ type SingleProps = {
 //   return [{}, {}];
 // }
 
-const Single: React.FC<SingleProps> = ({ products, prd }) => {
+const Single: React.FC<SingleProps> = ({
+  products,
+  prd,
+  currencies,
+  rampCurrency,
+  setRampCurrency,
+}) => {
   const { t } = useTranslation('common');
   const router = useRouter();
   const [selectedItem, setSelectedItem] = useState('');
@@ -73,8 +84,7 @@ const Single: React.FC<SingleProps> = ({ products, prd }) => {
 
   const formatPrice = (p: number) => {
     const amt = new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
+      style: 'decimal',
     }).format(p ?? 0);
 
     return amt;
@@ -126,6 +136,24 @@ const Single: React.FC<SingleProps> = ({ products, prd }) => {
                     <h2 className="text-xl md:text-2xl font-semibold tracking-tighter capitalize">
                       {shop?.name ?? ''}
                     </h2>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <select
+                      id="countries"
+                      className="h-11 w-full min-w-[120px] appearance-none rounded border border-light-500 bg-transparent dark:bg-dark-300 px-4 py-2 text-13px text-dark ring-[0.5px] ring-light-500 placeholder:text-dark-900 focus:border-brand focus:ring-[0.5px] focus:ring-brand dark:border-dark-600 dark:text-light dark:ring-dark-600 dark:placeholder:text-dark-700 dark:focus:border-brand dark:focus:ring-brand md:h-12 lg:px-5 xl:h-[50px]"
+                      onChange={(e) => {
+                        setRampCurrency(e.target.value);
+                      }}
+                      placeholder={rampCurrency}
+                    >
+                      {/* <option selected>{rampCurrency}</option> */}
+                      {currencies?.map((item) => (
+                        <option value={item.code} key={item.uid}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                 </div>
 
@@ -182,7 +210,7 @@ const Single: React.FC<SingleProps> = ({ products, prd }) => {
 
                               <div className="flex flex-shrink-0 flex-col items-end pl-2.5">
                                 <span className="rounded-2xl bg-light-500 px-2.5 py-0.5 text-13px font-semibold uppercase text-black dark:bg-dark-300 dark:text-brand-dark">
-                                  {formatPrice(p.price)}
+                                  {p.currency ?? ''} {formatPrice(p.price)}
                                 </span>
                               </div>
                             </div>

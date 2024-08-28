@@ -1,6 +1,7 @@
 import Single from '@/components/product/single';
 import ItemNotFound from '@/components/ui/item-not-found';
 import { PageLoader } from '@/components/ui/loader/spinner/spinner';
+import { useCurrency } from '@/hooks/useCurrency';
 // import { getStaticPaths, getStaticProps } from '@/data/ssr/products.ssr';
 import Layout from '@/layouts/_layout';
 import { getProductDetailFn } from '@/services/products';
@@ -17,11 +18,15 @@ const ProductPage = () => {
   const { query } = useRouter();
   const searchParams = useSearchParams();
   const [prd] = useState(searchParams.get('prd'));
+  const { currencies, setRampCurrency, rampCurrency } = useCurrency();
 
   const shopDetailsQuery = useQuery(
-    ['get_shop_details', query.productSlug],
+    ['get_shop_details', query.productSlug, rampCurrency],
     () => {
-      return getProductDetailFn(query.productSlug as string);
+      return getProductDetailFn({
+        uid: query.productSlug as string,
+        currency_code: rampCurrency,
+      });
     },
     { enabled: !prd },
   );
@@ -47,7 +52,15 @@ const ProductPage = () => {
     </div>;
   }
 
-  return <Single products={shopDetails} prd={prd} />;
+  return (
+    <Single
+      products={shopDetails}
+      prd={prd}
+      currencies={currencies}
+      setRampCurrency={setRampCurrency}
+      rampCurrency={rampCurrency}
+    />
+  );
 };
 
 ProductPage.getLayout = function getLayout(page: any) {

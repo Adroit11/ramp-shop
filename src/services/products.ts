@@ -1,9 +1,11 @@
 import { getErrorMessage } from '@/utils/helpers';
 import request from './index';
 
-export const getProductsFn = async () => {
+export const getProductsFn = async (currency_code?: string) => {
   try {
-    const res = await request.get('/marketplace/products');
+    const res = await request.get(
+      `/marketplace/products?currency_code=${currency_code ?? 'USD'}`,
+    );
 
     return res.data;
   } catch (error) {
@@ -42,9 +44,27 @@ export const createOrderFn = async (data: CreateOrderDataType) => {
   }
 };
 
-export const getProductDetailFn = async (uid: string) => {
+export const getProductDetailFn = async ({
+  uid,
+  currency_code = 'USD',
+}: {
+  uid: string;
+  currency_code?: string;
+}) => {
   try {
-    const res = await request.get(`/marketplace/shop?uid=${uid}`);
+    const res = await request.get(
+      `/marketplace/shop?uid=${uid}&currency_code=${currency_code}`,
+    );
+
+    return res.data;
+  } catch (error) {
+    throw new Error(getErrorMessage(error));
+  }
+};
+
+export const getCurrenciesFn = async () => {
+  try {
+    const res = await request.get('/settings/currencies');
 
     return res.data;
   } catch (error) {

@@ -25,10 +25,10 @@ const DefaultSeo = () => {
           href: '/manifest.json',
         },
       ]}
-      title={'JoinRamp'}
-      titleTemplate={'Ramp'}
-      defaultTitle="Ramp"
-      description={'Ramp'}
+      title={'Ramp | New Customers, More Sales'}
+      titleTemplate={'Ramp | New Customers, More Sales'}
+      defaultTitle="Ramp | New Customers, More Sales"
+      description={'Ramp | New Customers, More Sales'}
       // canonical={settings?.seo?.canonicalUrl}
       // openGraph={{
       //   title: settings?.seo?.ogTitle,
